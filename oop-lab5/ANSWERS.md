@@ -160,3 +160,41 @@ Instead: no triangle. Each class keeps its own name and phone, or both hold a Co
 
 ## Part D ##
 
+``` mermaid
+classDiagram
+    direction LR
+    PromoCalculator ..> Order : reads
+    Menu "1" *-- "1..*" MenuSection : made of
+    MenuSection "0..*" o-- "0..*" MenuItem : lists
+    Restaurant "1..*" -- "1..*" Courier : works with
+```
+
+#	Relationship	Key words that decide it
+1	Dependency	"reads an order … keeps nothing", a parameter
+2	Composition	"the menu creates them … means nothing outside its menu"
+3	Aggregation	"Bissap appears both in Drinks and Lunch deals": the part is shared
+4	Association	many-to-many, neither one is part of the other
+
+## PART E ##
+```mermaid
+classDiagram
+    direction TB
+    class Vehicle { <<abstract>> } 
+    Vehicle <|-- Minibus
+    Vehicle <|-- Taxi
+    class Insurable {
+        <<interface>>
+        +insuranceExpiry() Date
+    }
+    Insurable <|.. Vehicle
+    Insurable <|.. Driver
+
+        Minibus "0..*" --> "1" Route : serves
+    Trip "0..*" --> "1" Driver : driven by
+    Trip "0..*" --> "1" Vehicle : uses
+    Trip "0..*" --> "1" Route : follows
+
+      Trip "1" *-- "0..*" Ticket : sells
+    Route "0..*" o-- "1..*" Stop : ordered stops
+    FareCalculator ..> Route : uses
+    ```
